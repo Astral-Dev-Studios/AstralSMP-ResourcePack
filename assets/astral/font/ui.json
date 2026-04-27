@@ -1,0 +1,10 @@
+{"providers": [
+        {
+            "type": "bitmap",
+            "file": "astral:ui/black_box.png",
+            "ascent": 500,
+            "height": 1000,
+            "chars": ["\uD001"]
+        }
+    ]
+}

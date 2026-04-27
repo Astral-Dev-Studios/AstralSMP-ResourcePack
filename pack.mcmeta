@@ -1,0 +1,12 @@
+{
+  "pack": {
+    "description": {
+      "text": "Astral's Server pack",
+      "type": "text",
+      "color": "#ffd752",
+      "shadow_color": 12001055
+    },
+    "pack_format": 46,
+    "supported_formats": 61
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "ui.click": {
+        "sounds": [
+            {
+                "name": "astral:ui/click",
+                "volume": 1,
+                "type": "file"
+            }
+        ]
+    },
+    "ui.hover": {
+        "sounds": [
+            {
+                "name": "astral:ui/hover",
+                "volume": 1,
+                "type": "file"
+            }
+        ]
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "providers": [
+    {
+      "type": "ttf",
+      "file": "astral:hud3.ttf",
+      "size": 7,
+      "oversample": 32
+    }
+  ]
+}
