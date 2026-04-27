@@ -1,0 +1,77 @@
+name: Release Resource Pack
+
+on:
+  push:
+    branches:
+      - main  # Change to your default branch if different
+    paths-ignore:
+      - '.github/**'
+      - 'README.md'
+      - '.gitignore'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get commit info
+        id: commit_info
+        run: |
+          echo "message=$(git log -1 --pretty=%B | head -n 1)" >> $GITHUB_OUTPUT
+          echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "date=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
+
+      - name: Get pack name from pack.mcmeta
+        id: pack_info
+        run: |
+          if [ -f "pack.mcmeta" ]; then
+            # Try to extract description as pack name, fallback to repo name
+            PACK_NAME=$(cat pack.mcmeta | grep -oP '"description"\s*:\s*"\K[^"]+' | head -1 || echo "${{ github.event.repository.name }}")
+          else
+            PACK_NAME="${{ github.event.repository.name }}"
+          fi
+          echo "name=${PACK_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Create resource pack zip
+        run: |
+          # Create zip excluding git files and github folder
+          zip -r resourcepack.zip . \
+            -x "*.git*" \
+            -x ".github/*" \
+            -x "README.md" \
+            -x "LICENSE" \
+            -x "*.zip"
+
+      - name: Generate release tag
+        id: tag
+        run: |
+          TAG="v${{ steps.commit_info.outputs.date }}-${{ steps.commit_info.outputs.short_sha }}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "Release ${{ steps.tag.outputs.tag }}"
+          body: |
+            ## 📦 Resource Pack Release
+            
+            **Commit:** `${{ steps.commit_info.outputs.short_sha }}`
+            
+            ### 📝 Changes
+            ${{ steps.commit_info.outputs.message }}
+            
+            ---
+            *Auto-generated release from commit ${{ github.sha }}*
+          files: resourcepack.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
