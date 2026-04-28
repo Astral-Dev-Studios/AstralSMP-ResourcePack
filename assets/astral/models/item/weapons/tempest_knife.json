@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "astral:item/weapons/steel_scythe",
-		"particle": "astral:item/weapons/steel_scythe"
+		"2": "astral:item/weapons/tempest_knife",
+		"particle": "astral:item/weapons/tempest_knife"
 	},
 	"elements": [
 		{
