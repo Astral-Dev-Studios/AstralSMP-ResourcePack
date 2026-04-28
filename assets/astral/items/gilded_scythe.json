@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "select",
+    "property": "display_context",
+    "cases": [
+      {
+        "when": "gui",
+        "model": {
+          "type": "model",
+          "model": "astral:item/weapons/gilded_scythe_small"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "model",
+      "model": "astral:item/weapons/gilded_scythe"
+    }
+  }
+}
