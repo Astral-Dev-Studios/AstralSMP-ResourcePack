@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "astral:items/weapons/steel_scythe.png"
+    "layer0": "astral:item/weapons/steel_scythe"
   }
 }
